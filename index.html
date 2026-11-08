@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re-vision | AI Seller Pricing Demo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="assets/tailwind-config.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="h-full text-slate-800 font-sans antialiased selection:bg-revision-500 selection:text-white flex flex-col">
+    <div id="app" class="min-h-full flex flex-col flex-1">
+
+        <!-- Header styled like slides (Soft Sky Blue / Teal Gradient) -->
+        <header class="bg-gradient-to-r from-sky-600 via-teal-600 to-sky-700 text-white shadow-md sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+
+            <!-- Brand Logo -->
+            <button
+                type="button"
+                onclick="switchTab('marketplace')"
+                class="flex shrink-0 items-center"
+                aria-label="Re-vision — go to marketplace"
+            >
+                <img
+                    src="./assets/logo.png"
+                    alt="Re-vision"
+                    class="h-12 w-auto max-w-[180px] object-contain"
+                >
+            </button>
+
+                <!-- Action Controls & Tabs -->
+                <div class="flex items-center space-x-3">
+
+                    <!-- Language Toggle -->
+                    <button onclick="toggleLanguage()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-white transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-globe text-sky-200"></i>
+                        <span id="langLabel">
+                            繁體中文 
+                        </span>
+                    </button>
+
+                    <!-- Persona Tag -->
+                    <div class="hidden xl:flex items-center space-x-2 bg-white/15 px-3 py-1.5 rounded-full border border-white/25 text-xs text-white">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="font-semibold" data-i18n="userName">
+                            Chris Wong (Verified)
+                        </span>
+                    </div>
+
+                    <!-- Main Navigation Tabs -->
+                    <nav class="flex items-center space-x-1 sm:space-x-1.5">
+                        <button onclick="switchTab('marketplace')" id="nav-marketplace" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-white text-sky-800 shadow-sm">
+                            <i class="fa-solid fa-store mr-1.5"></i><span data-i18n="tabMarketplace">
+                                Marketplace
+                            </span>
+                        </button>
+                        <button onclick="switchTab('movement')" id="nav-movement" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition text-sky-100 hover:bg-white/10">
+                            <i class="fa-solid fa-list-check mr-1.5"></i><span data-i18n="tabMovement">
+                                Ticket Ledger
+                            </span>
+                        </button>
+                        <button onclick="switchTab('ledger')" id="nav-ledger" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition text-sky-100 hover:bg-white/10">
+                            <i class="fa-solid fa-wallet mr-1.5"></i><span data-i18n="tabLedger">
+                                Wallet
+                            </span>
+                        </button>
+                        <button onclick="switchTab('gate')" id="nav-gate" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition text-sky-100 hover:bg-white/10">
+                            <i class="fa-solid fa-qrcode mr-1.5"></i><span data-i18n="tabGate">
+                                QR Code
+                            </span>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Body Wrapper -->
+        <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<div class="demo-notice mb-5">Student prototype · Synthetic pricing data · No real payments, identity checks, issuer integration, or venue-valid passes.</div>
+
+            <!-- TAB 1: MARKETPLACE -->
+            <section id="tab-marketplace" class="space-y-6">
+                <!-- Hero Banner -->
+                <div class="bg-gradient-to-r from-sky-50 via-teal-50 to-emerald-50 rounded-2xl border border-sky-200/80 p-6 sm:p-8 shadow-sm relative overflow-hidden">
+                    <div class="absolute -right-8 -bottom-8 w-60 h-60 bg-sky-200/30 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="relative z-10 max-w-3xl">
+                        <div class="flex flex-wrap items-center gap-2 mb-3">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white shadow-sm">
+                                <i class="fa-solid fa-shield-check mr-1.5"></i> <span data-i18n="heroBadge">
+                                    Official Exchange
+                                </span>
+                            </span>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-sky-100 text-sky-800 border border-sky-200">
+                                <i class="fa-solid fa-lock mr-1.5"></i> <span data-i18n="heroNoChat">
+                                    No Chat • No Haggling
+                                </span>
+                            </span>
+                        </div>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2" data-i18n="heroTitle">
+                            Ticket Resale Hub
+                        </h1>
+                        <p class="text-slate-600 text-sm sm:text-base mb-6 leading-relaxed" data-i18n="heroDesc">
+                            Every ticket is verified on-record by the central primary box office. Buyers click to buy instantly with no DMs. 
+                            The QR codes are revoked immediately upon transfer and replaced with encrypted dynamic QR Codes.
+                        </p>
+
+                        <!-- 10 Features Legend Bar -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 border-t border-sky-200/60 text-xs text-slate-700">
+                            <div class="flex items-center space-x-1.5"><i class="fa-solid fa-check text-emerald-600"></i><span data-i18n="f1">
+                                HKID Linked
+                            </span>
+                        </div>
+                            <div class="flex items-center space-x-1.5"><i class="fa-solid fa-check text-emerald-600"></i><span data-i18n="f2">
+                                Maximum Price (1.0x - 1.5x)
+                            </span>
+                        </div>
+                            <div class="flex items-center space-x-1.5"><i class="fa-solid fa-check text-emerald-600"></i><span data-i18n="f3">
+                                24h Auto Cutoff
+                            </span>
+                        </div>
+                            <div class="flex items-center space-x-1.5"><i class="fa-solid fa-check text-emerald-600"></i><span data-i18n="f4">
+                                Social Verification
+                            </span>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+<!-- Filter & Search Toolbar -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="relative flex-1 w-full">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                        <input type="text" id="searchInput" oninput="filterListings()" placeholder="Search by match, stadium, or seat section..." data-i18n-placeholder="searchPlaceholder" class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-10 pr-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                    </div>
+                    <div class="flex items-center space-x-3 w-full sm:w-auto justify-end">
+                        <select id="sortSelect" onchange="filterListings()" class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <option value="price-asc" data-i18n="sortPrice">
+                                Price: Low to High
+                            </option>
+                            <option value="trust-desc" data-i18n="sortTrust">
+                                Trust Score: High to Low
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Listings Grid -->
+                <div id="listingsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </section>
+
+            <!-- TAB 2: TICKET MOVEMENT LIST (PUBLIC AUDIT LEDGER) -->
+            <section id="tab-movement" class="hidden space-y-6">
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <h2 class="text-xl font-bold text-slate-900" data-i18n="movementTitle">
+                                    Central Ticket Movement Ledger (Public Audit Log)
+                                </h2>
+                                <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-bold">
+                                    Demo Records
+                                </span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-600 mt-1" data-i18n="movementDesc">
+                                Fixed central registry recording masked personal information, ownership history and current resale status. Buyers can verify sellers before paying.
+                            </p>
+                        </div>
+                        <button onclick="toggleResellOnlyFilter()" id="filterResellBtn" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 text-xs font-semibold transition flex items-center space-x-2 shrink-0">
+                            <i class="fa-solid fa-filter text-sky-600"></i>
+                            <span data-i18n="filterResellOnly">
+                                Show Resale Listed Only
+                            </span>
+                        </button>
+                    </div>
+
+                    <div class="mt-6 overflow-x-auto rounded-xl border border-slate-200">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold uppercase tracking-wider text-slate-500">
+                                    <th class="p-4" data-i18n="thTicketId">
+                                        Ticket ID
+                                    </th>
+                                    <th class="p-4" data-i18n="thMatch">
+                                        Event
+                                    </th>
+                                    <th class="p-4" data-i18n="thOrig">
+                                        Original Purchaser
+                                    </th>
+                                    <th class="p-4" data-i18n="thCurr">
+                                        Current Owner
+                                    </th>
+                                    <th class="p-4" data-i18n="thPreference">
+                                        Resale Status
+                                    </th>
+                                    <th class="p-4 text-center" data-i18n="thPriceRange">
+                                        Price Range
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="movementTableBody" class="divide-y divide-slate-200 text-xs sm:text-sm text-slate-700"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: WALLET & LEDGER -->
+            <section id="tab-ledger" class="hidden space-y-6">
+<div class="bg-gradient-to-r from-sky-50 via-teal-50 to-emerald-50 border border-sky-200 rounded-2xl p-6">
+<div class="text-xs uppercase tracking-widest font-bold text-teal-700 mb-2">AI seller studio</div>
+<h2 class="text-2xl font-extrabold text-slate-900">Less guesswork. A clearer starting price.</h2>
+<p class="text-sm text-slate-600 mt-2 max-w-2xl">Open a ticket’s resale settings to see a random-forest estimate and comparable synthetic transactions. You always choose the final price.</p>
+<div id="pricingMetrics" class="mt-4 text-xs text-slate-500" aria-live="polite">Loading model information…</div></div>
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <h2 class="text-xl font-bold text-slate-900" data-i18n="walletTitle">
+                                    Chris Wong's Digital Wallet
+                                </h2>
+                                <span class="bg-sky-100 text-sky-800 text-xs px-2.5 py-0.5 rounded-full font-bold">
+                                    Demo account: Chris Wong
+                                </span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-600 mt-1" data-i18n="walletDesc">
+                                One-click resale toggle, instant platform buy-back option.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4" data-i18n="myTicketsHeader">
+                            My Tickets
+                        </h3>
+                        <div id="userWalletTickets" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: STADIUM GATE SIMULATOR -->
+            <section id="tab-gate" class="hidden space-y-6">
+                <div class="max-w-xl mx-auto bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-md text-center">
+                    <div class="w-14 h-14 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
+                        <i class="fa-solid fa-qrcode"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-2" data-i18n="gateTitle">
+                        Event Pass
+                    </h2>
+
+                    <!-- Scan Mode Selection -->
+                    <div class="mb-5 text-left">
+                        <select id="gateTicketSelect" onchange="onGateTicketChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <!-- Populated via JS -->
+                        </select>
+                    </div>
+
+                    <!-- 30-Second Dynamic Canvas QR Code Box -->
+                    <div class="bg-slate-900 text-white p-5 rounded-xl mb-6 text-center space-y-3 shadow-inner">
+                        <div class="text-xs font-semibold text-sky-300 flex items-center justify-center space-x-1.5">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span>
+                                30-Second Demo Pass · Not Venue Valid
+                            </span>
+                        </div>
+
+                        <div class="w-40 h-40 mx-auto bg-white p-2.5 rounded-lg flex items-center justify-center shadow">
+                            <canvas id="qrCanvas" width="140" height="140"></canvas>
+                        </div>
+
+                        <!-- Countdown Timer & Progress Bar -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-[11px] font-mono px-1">
+                                <span class="text-slate-400">
+                                    Auto-Refresh:
+                                </span>
+                                <span id="gateTimerSeconds" class="text-sky-400 font-bold">30s</span>
+                            </div>
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                                <div id="gateTimerBar" class="bg-gradient-to-r from-sky-400 to-teal-400 h-full w-full transition-all duration-1000"></div>
+                            </div>
+                        </div>
+
+                        <button onclick="forceQRRefresh()" class="text-xs text-sky-400 hover:text-sky-300 font-semibold underline pt-1 inline-block">
+                            Force Instant Refresh
+                        </button>
+                    </div>
+
+                    <button onclick="simulateScan()" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-sky-600 to-teal-600 hover:from-sky-700 hover:to-teal-700 text-white font-bold text-sm shadow-md transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-fingerprint"></i>
+                        <span data-i18n="gateBtnScan">
+                            Scan Ticket Code
+                        </span>
+                    </button>
+
+                    <div id="scanResultBox" class="mt-6 hidden p-6 rounded-2xl border text-left transition-all">
+                        <!-- Result HTML -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white border-t border-slate-150 py-6 text-center text-xs text-slate-500">
+            <p data-i18n="footerText">
+                Re-vision • EMIA2020 Cross-disciplinary Design Thinking • Official Ticket Resale System
+            </p>
+        </footer>
+    </div>
+
+    <!-- MODAL: PURCHASE (NO CHAT BUY NOW) -->
+    <div id="purchaseModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closePurchaseModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="purchaseModalContent"></div>
+        </div>
+    </div>
+
+    <!-- MODAL: PRICE BAND INSPECTOR -->
+    <div id="priceModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closePriceModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="priceModalContent"></div>
+        </div>
+    </div>
+
+    <!-- MODAL: SOCIAL VERIFICATION BADGE SHARE -->
+    <div id="socialModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeSocialModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="socialModalContent"></div>
+        </div>
+    </div>
+
+    <!-- MODAL: RESELL PREFERENCE CONFIGURATOR -->
+    <div id="prefModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closePrefModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="prefModalContent"></div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 max-w-sm bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center space-x-3">
+        <div id="toastIcon" class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <div id="toastTitle" class="text-sm font-bold">
+                Success
+            </div>
+            <div id="toastMsg" class="text-xs text-slate-300">
+                Action performed.
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+<script src="assets/pricing-engine.js"></script>
+<script src="assets/ai-pricing.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+.demo-notice {padding:10px 14px;border-radius:10px;background:#eff6ff;border:1px solid #bae6fd;color:#075985;font-size:11px;line-height:1.6;}
+#prefModal > div {max-width:650px;max-height:92dvh;overflow-y:auto;}
+.ai-price-panel {border:1px solid #bae6fd;background:linear-gradient(135deg,#f0f9ff,#f0fdfa);border-radius:16px;padding:20px;margin-bottom:20px;}
+.ai-price-panel button:disabled {opacity:.5;cursor:not-allowed;}
+.ai-stat {border:1px solid #e2e8f0;border-radius:10px;background:#ffffffb8;padding:9px;}
+.ai-comparables {width:100%;font-size:11px;text-align:left;border-collapse:collapse;}
+.ai-comparables td,.ai-comparables th {padding:8px 5px;border-bottom:1px solid #e2e8f0;white-space:nowrap;}
+.ai-comparables th {color:#64748b;font-weight:600;}
+.ai-histogram {height:85px;display:flex;align-items:flex-end;gap:5px;padding-top:8px;}
+.ai-histogram span {flex:1;min-height:3px;background:linear-gradient(#38bdf8,#0d9488);border-radius:4px 4px 0 0;}
+.ai-fade {animation:aiFade .25s ease-out;}
+@keyframes aiFade {from {opacity:0;transform:translateY(5px)} to {opacity:1;transform:translateY(0)}}
+button:focus-visible,a:focus-visible {outline:3px solid #38bdf8;outline-offset:3px;}
+@media(max-width:680px){header > div {height:auto!important;min-height:64px;flex-wrap:wrap;gap:8px;padding-top:10px;padding-bottom:10px;}header nav {flex-wrap:wrap;}header nav button {padding:7px!important;font-size:11px!important;}header > div > div:last-child {flex-wrap:wrap;}#prefModal {padding:8px;}#prefModal > div {padding:18px;}.ai-price-panel {padding:14px;}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}

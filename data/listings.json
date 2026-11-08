@@ -1,0 +1,24 @@
+{
+  "synthetic": true,
+  "snapshot_label": "Fixed fictional market snapshot; not live event dates",
+  "profiles": {
+    "REV-KT-7119": {
+      "days_to_event": 10,
+      "demand_index": 0.86,
+      "available_listings": 18,
+      "seat_quality": 2
+    },
+    "REV-KT-3341": {
+      "days_to_event": 7,
+      "demand_index": 0.59,
+      "available_listings": 42,
+      "seat_quality": 3
+    }
+  },
+  "default_profile": {
+    "days_to_event": 14,
+    "demand_index": 0.55,
+    "available_listings": 40,
+    "seat_quality": 2
+  }
+}
