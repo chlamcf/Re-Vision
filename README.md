@@ -19,12 +19,6 @@ The application combines a marketplace, digital wallet, simulated ownership ledg
 
 The pretrained model and dataset are included. No API key, backend, or machine-learning package installation is required to view the demo.
 
-### Requirements
-
-- Python 3
-- A modern web browser
-- Internet access for Tailwind CSS, Font Awesome, and Google Fonts
-
 ### Run Locally
 
 Open a terminal in the project folder containing `index.html` and run:
