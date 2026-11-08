@@ -155,3 +155,5 @@ Based on the supplied Re-vision HTML prototype and EMIA2020 Re-Vision group slid
 ## Deliberate scope limits
 
 No backend, real payments, authentication, issuer integrations, live data, chatbot, or production fraud detection. This is a presentation-focused student prototype with a genuine, reproducible ML component.
+#   R e - V i s i o n  
+ 
