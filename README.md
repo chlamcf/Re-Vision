@@ -92,10 +92,6 @@ Enforce the ticket's minimum and maximum prices
 Suggested asking price
 ```
 
-The exported model runs directly in the browser. Recommendations are calculated from trained trees rather than a hard-coded price table.
-
-Price rounding and enforcement of the allowed resale band are application rules, not machine learning.
-
 ### Comparable Sales
 
 The pricing panel displays five nearby synthetic transactions.
