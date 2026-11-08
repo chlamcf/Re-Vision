@@ -1,6 +1,6 @@
 # Re-Vision — AI-Assisted Ticket Resale
 
-A student ticket-resale prototype with machine-learning-powered seller price recommendations.
+A ticket-resale prototype with machine-learning-powered seller price recommendations.
 
 The application combines a marketplace, digital wallet, simulated ownership ledger, and demo ticket scanner. Its pricing feature helps sellers choose an asking price using a trained model and comparable synthetic transactions.
 
@@ -130,8 +130,6 @@ The bundled model produced the following results on the synthetic test set:
 Mean absolute error measures the average absolute difference between predicted prices and recorded synthetic sale prices.
 
 The baseline applies the training set's median sale-price-to-face-value ratio to every ticket. Evaluation uses unrounded, unclipped predictions; displayed recommendations are rounded and restricted to the allowed price band separately.
-
-> The generator deliberately creates relationships between market features and sale prices. These results demonstrate the machine-learning pipeline, not real-world pricing accuracy. The same test set also supplies the illustrative residual guide.
 
 ## Project Structure
 
