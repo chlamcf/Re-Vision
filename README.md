@@ -1,140 +1,166 @@
-# Re-vision — AI Seller Pricing Demo
+# Re-Vision — AI-Assisted Ticket Resale
 
-A student ticket-resale prototype enhanced with a trained price-recommendation model. It preserves the original sky-blue/teal gradient, Inter typography, rounded cards, and marketplace/wallet/ledger/pass layout.
+A student ticket-resale prototype with machine-learning-powered seller price recommendations.
 
-## Run the included demo
+The application combines a marketplace, digital wallet, simulated ownership ledger, and demo ticket scanner. Its pricing feature helps sellers choose an asking price using a trained model and comparable synthetic transactions.
 
-Python 3 is sufficient to serve the included pretrained model; no packages or API key are required for viewing.
+## Features
+
+- Ticket marketplace with search and sorting.
+- Digital wallet with resale settings.
+- AI-generated asking-price recommendations.
+- Comparable synthetic sales for pricing context.
+- One-click application of a suggested price to the resale form.
+- Simulated marketplace and ownership-record updates.
+- Demo ticket-pass and scanner interactions.
+- Existing English and Traditional Chinese interface toggle. The pricing panel is currently in English.
+
+## Quick Start
+
+The pretrained model and dataset are included. No API key, backend, or machine-learning package installation is required to view the demo.
+
+### Requirements
+
+- Python 3
+- A modern web browser
+- Internet access for Tailwind CSS, Font Awesome, and Google Fonts
+
+### Run Locally
+
+Open a terminal in the project folder containing `index.html` and run:
 
 ```bash
-cd re-vision
 python -m http.server 8000
 ```
 
-Open http://localhost:8000 in a browser. On systems where Python is named `python3`, use that instead. Do not open index.html directly: the model loads through fetch and needs HTTP. Internet access is required for the original Tailwind CDN, Font Awesome, and Google Fonts. The model itself runs locally in your browser, without an external AI service.
-
-### 45-second demonstration
-
-1. Select **Try AI pricing**, or open **Wallet**.
-2. On the first ticket, select **One-Click Resell**.
-3. Inspect the suggested price, numerical inputs, and residual-based price guide.
-4. Expand **Inspect comparable synthetic sales**.
-5. Select **Use HK$…**, then **Save & Sync Ledger**.
-6. Open Marketplace to see the updated asking price.
-7. Repeat with the second wallet ticket to see a different recommendation.
-
-The first bundled ticket receives a recommendation of HK$556. This is a model output on a fictional market snapshot, not a real market valuation.
-
-## What is actually AI?
-
-A scikit-learn RandomForestRegressor, with 24 trees and maximum depth 6, predicts the ratio of sold price to face value. Its inputs are days to event, demand index, available listing count, and seat-quality category. The exported trees are evaluated in JavaScript; no hard-coded price lookup or chatbot is used.
-
-The application scales the predicted ratio by a ticket's face value, rounds to HK$1, then clips to that ticket's existing minimum and maximum resale prices. Clipping is ordinary business logic, not machine learning.
-
-The comparable-sales table is a separate nearest-record lookup using normalized feature distance plus log face-value distance. It provides context, not an exact explanation of the forest's prediction.
-
-The histogram describes all synthetic sale-price ratios. It is not a price forecast.
-
-### Dataset and evaluation
-
-The included dataset contains 1,800 fictional completed transactions generated with seed 42. A fixed random split uses 1,440 for training and 360 for testing. On that synthetic test set:
-
-| Metric | Result |
-|---|---:|
-| Random forest MAE | HK$14.37 |
-| Training-median-ratio baseline MAE | HK$38.33 |
-
-MAE is the average absolute difference between predicted and synthetic recorded sale prices. The baseline predicts the training set's median sale-price/face-value ratio for every ticket. These are unrounded, unclipped predictions; the demo asking price is rounded and clipped separately.
-
-The data generator intentionally embeds a relationship between the features and sale-price ratio. Good performance on its synthetic test set therefore demonstrates the pipeline, not real-world market usefulness. The displayed price guide uses the test residuals' 80th-percentile absolute ratio error scaled by face value, then clipped to the allowed band. It is not a calibrated confidence interval. The same test data is used for evaluation and this illustrative guide; do not treat it as an independently validated uncertainty model.
-
-## Real versus simulated
-
-| Component | Status |
-|---|---|
-| Trained random forest and browser inference | Real trained model, synthetic training data |
-| Recommendations | Calculated in browser from the exported trees |
-| Market signals, transactions, identities | Synthetic |
-| Event dates | Original prototype fixtures, not a live event feed |
-| Days-to-event inputs | Fixed fictional pricing snapshot, not computed from the displayed dates |
-| Payment, buy-back, ownership ledger | Browser-session simulation |
-| QR/pass display | Visual simulation, not a cryptographic or venue-valid pass |
-| Existing seller trust percentages | Prototype placeholders, not validated model outputs |
-| Persistence | Session only; refreshing resets demo transactions |
-| Language support | Existing EN/Traditional Chinese toggle; pricing panel remains English |
-
-Nothing in this app verifies ticket authenticity, ownership with an issuer, or a user's identity. Do not upload real HKID data or use it for real financial decisions. No selling-speed prediction or sale guarantee is provided.
-
-## Rebuild the data and model
-
-Python 3.10–3.12 is recommended for the pinned scikit-learn release.
-
-```bash
-python -m venv .venv
-```
-
-Activate the environment:
-
-```bash
-# macOS / Linux
-source .venv/bin/activate
-
-# Windows PowerShell (alternative)
-.venv\Scripts\Activate.ps1
-```
-
-Then run from the project root:
-
-```bash
-python -m pip install -r requirements.txt
-python ml/generate_data.py
-python ml/train_model.py
-python ml/export_model.py
-```
-
-The first script replaces synthetic_sales.csv, comparables.json, and listings.json. The second saves a local joblib artifact and metrics. The third exports data/model.json for the browser. Do not load untrusted joblib artifacts. The generated joblib file is deliberately excluded from the distribution; it is not needed for the browser demo.
-
-## Verify the browser export
-
-Install Node.js to run this optional test, then rebuild the model as above:
-
-```bash
-python tests/test_export.py
-```
-
-This checks 100 Python/JavaScript prediction pairs, price limits, invalid inputs, and guide bounds. Browser inference casts inputs to float32 to match scikit-learn tree traversal.
-
-JavaScript syntax can also be checked with:
-
-```bash
-node --check app.js
-node --check assets/ai-pricing.js
-node --check assets/pricing-engine.js
-```
-
-The included implementation was also exercised in headless Chromium: open resale form, get estimate, apply, save, check wallet/marketplace, and list the previously unlisted second ticket. External style dependencies were mocked during that functional test; it was not a full visual or cross-browser audit.
-
-## Files
+Then visit:
 
 ```text
-re-vision/
-├── index.html                  Original page layout, enhanced entry points
-├── styles.css                  Additional responsive/modal/pricing styles
-├── app.js                      Original app logic, with resale-state initialization fix
+http://localhost:8000
+```
+
+If your system uses `python3`, run:
+
+```bash
+python3 -m http.server 8000
+```
+
+> Do not open `index.html` directly. The application loads its model and data using `fetch`, which requires serving the files over HTTP.
+
+## Try the Pricing Feature
+
+1. Open **Wallet**.
+2. Select **One-Click Resell** on a ticket.
+3. Inspect the suggested asking price and model inputs.
+4. Expand **Inspect comparable synthetic sales** to view similar records.
+5. Select **Use HK$…** to apply the recommendation.
+6. Select **Save & Sync Ledger** to publish the simulated listing.
+7. Open **Marketplace** to inspect the updated asking price.
+
+Applying a recommendation fills the resale form. It does not publish the listing until the user saves.
+
+Changes are stored only in the current browser session. Refreshing the page resets the demo.
+
+## How the AI Works
+
+The application uses a `RandomForestRegressor` trained on 1,800 synthetic completed transactions.
+
+The model contains 24 regression trees with a maximum depth of 6. It predicts the ratio of sale price to face value using four numerical inputs:
+
+| Input | Meaning |
+| --- | --- |
+| Days to event | Time remaining in the fictional market snapshot |
+| Demand index | Synthetic demand signal between 0.1 and 1 |
+| Available listings | Number of competing listings |
+| Seat quality | Seat category: 1 standard, 2 preferred, 3 premium |
+
+The application calculates the suggested asking price as follows:
+
+```text
+Market inputs
+    |
+    v
+Trained random forest
+    |
+    v
+Predicted sale-price / face-value ratio
+    |
+    v
+Multiply by the ticket's face value
+    |
+    v
+Round to the nearest HK$1
+    |
+    v
+Enforce the ticket's minimum and maximum prices
+    |
+    v
+Suggested asking price
+```
+
+The exported model runs directly in the browser. Recommendations are calculated from trained trees rather than a hard-coded price table.
+
+Price rounding and enforcement of the allowed resale band are application rules, not machine learning.
+
+### Comparable Sales
+
+The pricing panel displays five nearby synthetic transactions.
+
+Records are selected using normalized feature distance and face-value distance. They provide pricing context, but they are not exact explanations of the random forest's prediction.
+
+### Price Guide
+
+The displayed price guide uses the held-out test set's 80th-percentile absolute ratio error, scaled by the ticket's face value and restricted to its allowed price band.
+
+It is an illustrative residual-based guide, not a calibrated confidence interval or a guarantee of the eventual sale price.
+
+The model does not predict selling speed.
+
+## Dataset and Evaluation
+
+The synthetic dataset is generated with a fixed random seed for reproducibility.
+
+| Dataset split | Transactions |
+| --- | ---: |
+| Training | 1,440 |
+| Testing | 360 |
+| Total | 1,800 |
+
+The bundled model produced the following results on the synthetic test set:
+
+| Method | Mean absolute error |
+| --- | ---: |
+| Random forest | HK$14.37 |
+| Training-median-ratio baseline | HK$38.33 |
+
+Mean absolute error measures the average absolute difference between predicted prices and recorded synthetic sale prices.
+
+The baseline applies the training set's median sale-price-to-face-value ratio to every ticket. Evaluation uses unrounded, unclipped predictions; displayed recommendations are rounded and restricted to the allowed price band separately.
+
+> The generator deliberately creates relationships between market features and sale prices. These results demonstrate the machine-learning pipeline, not real-world pricing accuracy. The same test set also supplies the illustrative residual guide.
+
+## Project Structure
+
+```text
+.
+├── index.html
+├── styles.css
+├── app.js
 ├── requirements.txt
+├── README.md
 ├── .gitignore
 ├── .nojekyll
-├── README.md
 ├── assets/
-│   ├── tailwind-config.js      Original brand palette and font configuration
-│   ├── pricing-engine.js       Trained tree inference and price-band enforcement
-│   └── ai-pricing.js           Model loading, price UI, comparable sales, apply action
+│   ├── logo.png
+│   ├── tailwind-config.js
+│   ├── pricing-engine.js
+│   └── ai-pricing.js
 ├── data/
-│   ├── listings.json           Ticket pricing feature snapshots
-│   ├── synthetic_sales.csv     Reproducible fictional transactions
-│   ├── comparables.json        Browser-readable transaction records
-│   ├── model.json              Exported forest and evaluation metadata
-│   └── metrics.json            Synthetic test metrics
+│   ├── listings.json
+│   ├── synthetic_sales.csv
+│   ├── comparables.json
+│   ├── model.json
+│   └── metrics.json
 ├── ml/
 │   ├── generate_data.py
 │   ├── train_model.py
@@ -144,16 +170,15 @@ re-vision/
     └── test_export.py
 ```
 
-## Static deployment
+### Main Files
 
-Upload the contents of this folder to a GitHub repository. Enable GitHub Pages from the repository's publishing settings using the branch/root that contains index.html. All local asset and data references are relative, so a repository subpath is supported. No server, secrets, or build step is required. Keep the data and assets folders beside index.html.
-
-## Original design and credits
-
-Based on the supplied Re-vision HTML prototype and EMIA2020 Re-Vision group slides, credited in those slides to Michelle Han, Caitlin Chan, Tony Lam, Bridget Sin, and Lala Tsui. Keep the original team's credit and describe your own AI implementation contribution separately in your portfolio. Confirm permission before publicly redistributing group work or assets. The original local-only logo reference was replaced by a portable text wordmark, since the source image was not provided.
-
-## Deliberate scope limits
-
-No backend, real payments, authentication, issuer integrations, live data, chatbot, or production fraud detection. This is a presentation-focused student prototype with a genuine, reproducible ML component.
-#   R e - V i s i o n  
- 
+| File | Purpose |
+| --- | --- |
+| `index.html` | Page layout and existing application screens |
+| `styles.css` | Additional pricing-panel and responsive styles |
+| `app.js` | Marketplace, wallet, ledger, and simulated transaction logic |
+| `assets/tailwind-config.js` | Brand colors and font configuration |
+| `assets/pricing-engine.js` | Browser model inference and price-band enforcement |
+| `assets/ai-pricing.js` | Pricing interface, data loading, and recommendation application |
+| `data/model.json` | Exported trained forest and evaluation metadata |
+| `data/listings.json` | Fixed pricing-input snapshots for demo tickets |
