@@ -1,4 +1,4 @@
-# Re-Vision — AI-Assisted Ticket Resale
+# Re-Vision
 
 A ticket-resale prototype with machine-learning-powered seller price recommendations.
 
@@ -17,7 +17,7 @@ The application combines a marketplace, digital wallet, simulated ownership ledg
 
 ## Quick Start
 
-The pretrained model and dataset are included. No API key, backend, or machine-learning package installation is required to view the demo.
+The pretrained model and dataset are included. No API key or machine-learning package installation is required to view the demo.
 
 ### Run Locally
 
@@ -94,17 +94,11 @@ Suggested asking price
 
 ### Comparable Sales
 
-The pricing panel displays five nearby synthetic transactions.
-
-Records are selected using normalized feature distance and face-value distance. They provide pricing context, but they are not exact explanations of the random forest's prediction.
+The pricing panel displays five nearby synthetic transactions. Records are selected using normalized feature distance and face-value distance.
 
 ### Price Guide
 
-The displayed price guide uses the held-out test set's 80th-percentile absolute ratio error, scaled by the ticket's face value and restricted to its allowed price band.
-
-It is an illustrative residual-based guide, not a calibrated confidence interval or a guarantee of the eventual sale price.
-
-The model does not predict selling speed.
+The displayed price guide uses the held-out test set's 80th-percentile absolute ratio error, scaled by the ticket's face value and restricted to its allowed price band. It is an illustrative residual-based guide.
 
 ## Dataset and Evaluation
 
